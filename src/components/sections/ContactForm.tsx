@@ -12,7 +12,8 @@ export function ContactForm() {
     event.preventDefault();
     setStatus('submitting');
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const payload = {
       name: formData.get('name'),
       email: formData.get('email'),
@@ -29,7 +30,7 @@ export function ContactForm() {
       if (!response.ok) throw new Error('Request failed');
 
       setStatus('success');
-      event.currentTarget.reset();
+      form.reset();
     } catch {
       setStatus('error');
     }
