@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { Reveal } from '@/components/motion/Reveal';
 import { getAllPosts, getPostBySlug } from '@/lib/mdx';
 
 export function generateStaticParams() {
@@ -32,26 +33,30 @@ export default async function PostPage(props: PageProps<'/writing/[slug]'>) {
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
-      <p className="font-mono text-xs text-muted-foreground">{post.date}</p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight">{post.title}</h1>
-      <p className="mt-4 text-lg text-muted-foreground">{post.summary}</p>
+      <Reveal>
+        <p className="font-mono text-xs text-muted-foreground">{post.date}</p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight">{post.title}</h1>
+        <p className="mt-4 text-lg text-muted-foreground">{post.summary}</p>
 
-      {post.tags && post.tags.length > 0 && (
-        <ul className="mt-4 flex flex-wrap gap-2">
-          {post.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border px-2 py-0.5 font-mono text-xs text-muted-foreground"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
-      )}
+        {post.tags && post.tags.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <li
+                key={tag}
+                className="rounded-full border px-2 py-0.5 font-mono text-xs text-muted-foreground"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        )}
+      </Reveal>
 
-      <div className="mt-10 space-y-4">
-        <MDXRemote source={post.content} />
-      </div>
+      <Reveal delay={0.1}>
+        <div className="mt-10 space-y-4">
+          <MDXRemote source={post.content} />
+        </div>
+      </Reveal>
     </article>
   );
 }

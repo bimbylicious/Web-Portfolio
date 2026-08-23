@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { CardShell } from '@/components/sections/CardShell';
 import type { Project } from '@/types/content';
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="rounded-lg border p-6">
-      <h3 className="text-lg font-semibold">
+    <CardShell>
+      <h3 className="font-heading text-lg font-semibold">
         <Link href={`/projects/${project.slug}`} className="hover:underline">
           {project.title}
         </Link>
@@ -20,6 +21,6 @@ export function ProjectCard({ project }: { project: Project }) {
           </li>
         ))}
       </ul>
-    </article>
+    </CardShell>
   );
 }
