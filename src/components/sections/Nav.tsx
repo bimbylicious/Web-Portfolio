@@ -10,21 +10,24 @@ export function Nav() {
   return (
     <motion.nav
       aria-label="Primary"
-      className="border-b bg-background"
+      className="border-line bg-bg/70 sticky top-0 z-50 border-b backdrop-blur-lg"
       initial={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: shouldReduceMotion ? 0 : 0.1, ease: 'easeOut' }}
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="font-heading font-semibold">
+        <Link href="/" className="font-display text-fg font-bold tracking-[-0.02em]">
           {SITE_NAME}
         </Link>
-        <ul className="flex gap-6 text-sm">
+        <ul className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] tracking-[0.1em] uppercase">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="group relative inline-block py-1">
+              <Link
+                href={link.href}
+                className="df-focus text-dim hover:text-fg group relative inline-block py-1"
+              >
                 {link.label}
-                <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-signal-blue transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                <span className="bg-violet absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
               </Link>
             </li>
           ))}
