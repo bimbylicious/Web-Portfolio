@@ -31,6 +31,8 @@ export const projectFrontmatterSchema = z
     }),
     featured: z.boolean(),
     date: z.string(),
+    dateRange: z.string().optional(),
+    category: z.string().optional(),
     coverImage: z.string().optional(),
     coverImageAlt: z.string().optional(),
     spotlightTagline: z.string().optional(),
