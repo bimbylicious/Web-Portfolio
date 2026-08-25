@@ -16,6 +16,20 @@
   --color-signal-blue: var(--signal-blue);
   --color-amber: var(--amber);
   --color-teal: var(--teal);
+  --font-display: var(--font-syne);
+  --color-bg: var(--df-bg);
+  --color-fg: var(--df-fg);
+  --color-body: var(--df-muted);
+  --color-dim: var(--df-dim);
+  --color-faint: var(--df-faint);
+  --color-violet: var(--df-violet);
+  --color-cyan: var(--df-cyan);
+  --color-pink: var(--df-pink);
+  --color-surface: var(--df-surface);
+  --color-line: var(--df-line);
+  --radius-card: 22px;
+  --radius-tile: 16px;
+  --radius-pill: 999px;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -62,6 +76,18 @@
   --signal-blue: #4c6fff;
   --amber: #e8a33d;
   --teal: #2dd4bf;
+
+  /* Depth Field palette (homepage redesign, in progress) */
+  --df-bg: #07060d;
+  --df-fg: #ecebf3;
+  --df-muted: #a9a5c0;
+  --df-dim: #8f8ba8;
+  --df-faint: #7d78a0;
+  --df-violet: #a68bff;
+  --df-cyan: #64d9e8;
+  --df-pink: #d6588c;
+  --df-surface: rgba(18, 15, 32, 0.6);
+  --df-line: rgba(236, 235, 243, 0.12);
 
   --background: var(--paper);
   --foreground: var(--slate);
