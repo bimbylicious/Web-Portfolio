@@ -1,23 +1,24 @@
-import { CredibilityStrip } from '@/components/sections/CredibilityStrip';
-import { FeaturedProjectSpotlight } from '@/components/sections/FeaturedProjectSpotlight';
-import { Hero } from '@/components/sections/Hero';
-import { SecondaryHighlights } from '@/components/sections/SecondaryHighlights';
-import { WritingTeaser } from '@/components/sections/WritingTeaser';
-import { getAllPosts, getAllProjects } from '@/lib/mdx';
+import { AboutCard } from '@/components/sections/AboutCard';
+import { ContactCTA } from '@/components/sections/ContactCTA';
+import { DepthHero } from '@/components/sections/DepthHero';
+import { SelectedWork } from '@/components/sections/SelectedWork';
+import { ToolsGrid } from '@/components/sections/ToolsGrid';
+import { AmbientField } from '@/components/motion/AmbientField';
+import { getAllProjects } from '@/lib/mdx';
 
 export default function HomePage() {
-  const projects = getAllProjects();
-  const spotlightProject = projects.find((project) => project.featured) ?? projects[0];
-  const secondaryProjects = projects.filter((project) => project.slug !== spotlightProject?.slug);
-  const [latestPost] = getAllPosts();
+  const selectedWork = getAllProjects()
+    .filter((project) => project.featured)
+    .slice(0, 2);
 
   return (
-    <>
-      <Hero />
-      <CredibilityStrip standoutMetric={spotlightProject?.metrics?.[0]} />
-      {spotlightProject && <FeaturedProjectSpotlight project={spotlightProject} />}
-      <SecondaryHighlights projects={secondaryProjects} />
-      {latestPost && <WritingTeaser post={latestPost} />}
-    </>
+    <div className="bg-bg text-fg relative">
+      <AmbientField />
+      <DepthHero />
+      <SelectedWork projects={selectedWork} />
+      <ToolsGrid />
+      <AboutCard />
+      <ContactCTA />
+    </div>
   );
 }
