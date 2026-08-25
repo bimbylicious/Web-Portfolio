@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Reveal } from '@/components/motion/Reveal';
+import { ProjectMediaGallery } from '@/components/sections/ProjectMediaGallery';
 import { getAllProjects, getProjectBySlug } from '@/lib/mdx';
 
 export function generateStaticParams() {
@@ -77,7 +78,13 @@ export default async function ProjectPage(props: PageProps<'/projects/[slug]'>) 
         )}
       </Reveal>
 
-      <Reveal delay={0.1}>
+      {project.media && project.media.length > 0 && (
+        <Reveal delay={0.1}>
+          <ProjectMediaGallery media={project.media} />
+        </Reveal>
+      )}
+
+      <Reveal delay={0.15}>
         <div className="mt-10 space-y-4">
           <MDXRemote source={project.content} />
         </div>

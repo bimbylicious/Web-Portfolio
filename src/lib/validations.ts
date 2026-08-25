@@ -5,6 +5,18 @@ export const projectMetricSchema = z.object({
   value: z.string(),
 });
 
+export const projectMediaItemSchema = z
+  .object({
+    type: z.enum(['image', 'video']),
+    src: z.string(),
+    alt: z.string().optional(),
+    caption: z.string().optional(),
+  })
+  .refine((data) => data.type !== 'image' || !!data.alt, {
+    message: 'alt is required for media items of type "image"',
+    path: ['alt'],
+  });
+
 export const projectFrontmatterSchema = z
   .object({
     title: z.string(),
@@ -21,6 +33,9 @@ export const projectFrontmatterSchema = z
     date: z.string(),
     coverImage: z.string().optional(),
     coverImageAlt: z.string().optional(),
+    spotlightTagline: z.string().optional(),
+    spotlightVideo: z.string().optional(),
+    media: z.array(projectMediaItemSchema).optional(),
   })
   .refine((data) => !data.coverImage || !!data.coverImageAlt, {
     message: 'coverImageAlt is required whenever coverImage is set',

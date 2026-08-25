@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { CardShell } from '@/components/sections/CardShell';
 import type { Project } from '@/types/content';
@@ -5,6 +6,16 @@ import type { Project } from '@/types/content';
 export function ProjectCard({ project }: { project: Project }) {
   return (
     <CardShell>
+      {project.coverImage && (
+        <div className="relative mb-4 aspect-video overflow-hidden rounded-md border">
+          <Image
+            src={project.coverImage}
+            alt={project.coverImageAlt ?? ''}
+            fill
+            className="object-cover"
+          />
+        </div>
+      )}
       <h3 className="font-heading text-lg font-semibold">
         <Link href={`/projects/${project.slug}`} className="hover:underline">
           {project.title}

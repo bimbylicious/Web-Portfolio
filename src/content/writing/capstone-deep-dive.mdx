@@ -6,7 +6,87 @@ date: '2026-03-20'
 tags: ['cloud', 'infrastructure', 'capstone']
 ---
 
-## Placeholder
+## The problem: you can't load-test what doesn't exist yet
 
-This is placeholder content for the capstone deep-dive post. Replace with the
-real write-up before launch.
+Resilience patterns — load balancing, auto-scaling, failover — are usually
+things you tune _after_ an incident, against infrastructure that already
+exists and already costs money to misconfigure. The capstone started from a
+narrower question: could a student, before ever touching a real cloud
+account, build enough intuition about cascade failures and capacity planning
+to make good decisions once the infrastructure is real? The answer became the
+Cloud Resiliency Management Dashboard — a sandbox where you draw a topology,
+throw failures and traffic at it, and watch the resilience metrics move.
+
+## Two engines, one interface
+
+The architecture ended up with two simulation engines that coexist in the
+same codebase, which wasn't the original plan.
+
+The first version was backend-driven: an Express API with Prisma/PostgreSQL
+and a set of `node-cron` worker jobs — a system evaluator, a failover
+executor, a health checker, an auto-scaler, and a threshold evaluator —
+running on a schedule and writing state to a real database. It's a reasonable
+architecture, and it's the one that maps most directly onto how an actual
+monitoring/orchestration system would be built. But for an interactive
+teaching tool, it was the wrong shape: every simulation tick meant a network
+round trip, and iteration speed on the topology canvas suffered for it.
+
+The active engine now is client-side: a Zustand store holds all topology and
+runtime state in the browser, bridged into the same React Query cache the app
+would use for live backend data, so the Dashboard and Resources pages don't
+know or care whether the numbers they're rendering came from a server or from
+a simulation tick that happened locally a moment ago. Simulations run
+instantly, the canvas stays responsive, and the backend pipeline still exists
+— fully preserved, re-enabled via an environment flag — as documentation of
+the "real" architecture this sandbox is modeling.
+
+## Modeling capacity, not just uptime
+
+The part of this that's actually queuing theory, rather than just a topology
+diagram with red and green nodes, is the load-balancing and capacity
+simulation engine. Each node in a topology can be given a request-type
+profile — different request types carry different service-time
+characteristics — and the simulation is driven by a configurable traffic
+mix rather than a single flat request rate.
+
+That framing matters because most of the interesting failure modes in real
+systems aren't "the server is down," they're "the server is up but its
+effective capacity has collapsed under a traffic mix it wasn't provisioned
+for." Modeling arrival rates against service rates per node, and deriving
+utilization from that ratio, is what makes it possible to show _why_ a
+load balancer's routing decision helps or doesn't — not just that latency
+went up. It's the same intuition behind Little's Law (the relationship
+between concurrency, arrival rate, and time-in-system): once you can see
+utilization approaching saturation on a specific node, cascade failures stop
+looking random and start looking like an obvious next step.
+
+That's the other half of the simulation: pushing a node past capacity and
+watching load redistribute onto its neighbors, which — if the topology or
+the load balancer config wasn't built to absorb it — pushes _those_ nodes
+toward saturation too. The cascade isn't scripted; it falls out of the same
+capacity model applied node by node.
+
+## Whether it actually worked
+
+The measure of whether any of this succeeded as a teaching tool isn't just
+"did it run" — it's whether someone unfamiliar with the system could use it
+and come away with correct intuitions. User testing put the System Usability
+Scale score at 80/100 ("Good" on the SUS grading scale) and the System
+Acceptance Questionnaire mean at 5.86/7. The simulation engine, the Zustand
+store, topology validation, and the React Query bridge are covered by 365
+automated tests across 16 test files — mainly because a simulator that's
+subtly wrong is worse than no simulator at all; if the capacity math or the
+cascade logic drifts, every intuition it teaches drifts with it.
+
+## What I'd change
+
+The backend pipeline being fully preserved but disabled by default is the
+right call for a capstone defense — it's proof the "real" architecture was
+built and understood, not just the fast path that shipped. But it's dead
+weight for anyone extending this outside an academic context. If this became
+a real product, the next step would be deciding for real whether the
+client-side engine is the permanent architecture (with the backend rebuilt
+purely as a persistence/collaboration layer, not a simulation authority) or
+whether the two need to reconverge — running the same capacity model on
+both sides so the "documentation" architecture isn't quietly diverging from
+the one people actually use.
