@@ -7,11 +7,11 @@ export function AboutCard() {
         <div className="border-line bg-surface grid gap-10 rounded-[var(--radius-card)] border p-8 backdrop-blur-lg lg:grid-cols-[280px_1fr] lg:p-10">
           <div>
             <div className="border-line bg-bg aspect-square rounded-[var(--radius-tile)] border border-dashed" />
-            <dl className="mt-5 space-y-2 font-mono text-[10.5px] tracking-[0.1em] uppercase">
-              <div className="text-dim">Las Piñas, Philippines · UTC+8</div>
-              <div className="text-dim">[N] years building production UI</div>
-              <div className="text-dim">Open to junior dev roles</div>
-            </dl>
+            <ul className="mt-5 space-y-2 font-mono text-[10.5px] tracking-[0.1em] uppercase">
+              <li className="text-dim">Las Piñas, Philippines · UTC+8</li>
+              <li className="text-dim">[N] years building production UI</li>
+              <li className="text-dim">Open to junior dev roles</li>
+            </ul>
           </div>
           <div>
             <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">03 — About</p>
@@ -32,7 +32,7 @@ export function AboutCard() {
                 sound like a person, not a résumé.]
               </p>
             </div>
-            <div className="border-line mt-6 grid grid-cols-2 gap-6 border-t pt-6">
+            <dl className="border-line mt-6 grid grid-cols-2 gap-6 border-t pt-6">
               <div>
                 <dt className="text-dim font-mono text-[10.5px] tracking-[0.1em] uppercase">
                   Learning
@@ -45,7 +45,7 @@ export function AboutCard() {
                 </dt>
                 <dd className="text-fg mt-1 text-[15px]">[Something human]</dd>
               </div>
-            </div>
+            </dl>
           </div>
         </div>
       </Reveal>
