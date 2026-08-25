@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
 import { TOOLS } from '@/lib/constants';
 
@@ -35,14 +36,19 @@ function ToolMark({ seed }: { seed: number }) {
 }
 
 function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number }) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   return (
     <motion.div
       initial={revealUp.hidden}
-      whileInView={revealUp.visible}
+      whileInView={shouldReduceMotion ? undefined : revealUp.visible}
+      animate={shouldReduceMotion ? revealUp.visible : undefined}
       viewport={VIEWPORT_ONCE}
-      transition={{ duration: DURATION.base, delay: index * 0.04, ease: EASE }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { duration: DURATION.base, delay: index * 0.04, ease: EASE }
+      }
     >
       <motion.div
         animate={
@@ -75,13 +81,16 @@ function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number
 }
 
 export function ToolsGrid() {
+  const shouldReduceMotion = useReducedMotionSafe();
+
   return (
     <section className="relative mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial={revealUp.hidden}
-        whileInView={revealUp.visible}
+        whileInView={shouldReduceMotion ? undefined : revealUp.visible}
+        animate={shouldReduceMotion ? revealUp.visible : undefined}
         viewport={VIEWPORT_ONCE}
-        transition={{ duration: DURATION.base, ease: EASE }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: DURATION.base, ease: EASE }}
         className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
       >
         <div>

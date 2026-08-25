@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 
 export function Reveal({
   children,
@@ -12,15 +13,16 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   return (
     <motion.div
       className={className}
-      initial={shouldReduceMotion ? undefined : { opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      animate={shouldReduceMotion ? { opacity: 1, y: 0 } : undefined}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay, ease: 'easeOut' }}
     >
       {children}
     </motion.div>

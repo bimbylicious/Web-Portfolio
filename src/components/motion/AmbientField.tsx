@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 
 const LIGHTS = [
   { top: '0%', left: '8%', color: 'var(--color-violet)', size: 520, duration: 26 },
@@ -12,7 +13,7 @@ const LIGHTS = [
 ] as const;
 
 export function AmbientField() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -48,7 +49,7 @@ export function AmbientField() {
       ))}
 
       <div className="df-rule-grid absolute inset-0" />
-      {!shouldReduceMotion && <div className="df-grain" />}
+      <div className="df-grain motion-reduce:hidden" />
     </div>
   );
 }

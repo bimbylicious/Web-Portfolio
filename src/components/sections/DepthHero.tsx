@@ -1,20 +1,19 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp } from '@/lib/motion';
 
 export function DepthHero() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   const stagger = (index: number) => ({
-    initial: shouldReduceMotion ? undefined : revealUp.hidden,
+    initial: revealUp.hidden,
     animate: revealUp.visible,
-    transition: {
-      duration: DURATION.base,
-      delay: shouldReduceMotion ? 0 : index * 0.12,
-      ease: EASE,
-    },
+    transition: shouldReduceMotion
+      ? { duration: 0 }
+      : { duration: DURATION.base, delay: index * 0.12, ease: EASE },
   });
 
   return (
@@ -24,9 +23,7 @@ export function DepthHero() {
         className="border-line bg-surface text-dim inline-flex items-center gap-2 rounded-[var(--radius-pill)] border px-4 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase backdrop-blur-lg"
       >
         <span className="relative flex h-2 w-2">
-          {!shouldReduceMotion && (
-            <span className="bg-violet absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-          )}
+          <span className="bg-violet motion-reduce:hidden absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
           <span className="bg-violet relative inline-flex h-2 w-2 rounded-full" />
         </span>
         Open to junior dev roles
@@ -34,7 +31,7 @@ export function DepthHero() {
 
       <motion.h1
         {...stagger(1)}
-        className="font-display text-fg mt-8 max-w-4xl text-[42px] leading-[1.05] font-extrabold tracking-[-0.04em] lg:text-[94px]"
+        className="font-display text-fg mt-8 w-full max-w-4xl text-[42px] leading-[1.05] font-extrabold tracking-[-0.04em] break-words lg:max-w-6xl lg:text-[94px]"
       >
         Interfaces for infrastructure{' '}
         <span className="from-violet to-cyan bg-gradient-to-r bg-clip-text text-transparent">

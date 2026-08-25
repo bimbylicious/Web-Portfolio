@@ -1,16 +1,17 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 
 export function Nav() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotionSafe();
 
   return (
     <motion.nav
       aria-label="Primary"
-      className="border-line bg-bg/70 sticky top-0 z-50 border-b backdrop-blur-lg"
+      className="border-line bg-bg sticky top-0 z-50 border-b backdrop-blur-lg"
       initial={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: shouldReduceMotion ? 0 : 0.1, ease: 'easeOut' }}

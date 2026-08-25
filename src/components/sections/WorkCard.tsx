@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
 import type { Project } from '@/types/content';
 
@@ -56,12 +57,15 @@ export function WorkCard({
   index: number;
   reverse: boolean;
 }) {
+  const shouldReduceMotion = useReducedMotionSafe();
+
   return (
     <motion.article
       initial={revealUp.hidden}
-      whileInView={revealUp.visible}
+      whileInView={shouldReduceMotion ? undefined : revealUp.visible}
+      animate={shouldReduceMotion ? revealUp.visible : undefined}
       viewport={VIEWPORT_ONCE}
-      transition={{ duration: DURATION.base, ease: EASE }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: DURATION.base, ease: EASE }}
       className="border-line bg-surface grid overflow-hidden rounded-[var(--radius-card)] border backdrop-blur-lg lg:grid-cols-2"
     >
       <div className={`p-8 lg:p-10 ${reverse ? 'lg:order-2' : 'lg:order-1'}`}>
