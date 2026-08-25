@@ -1,9 +1,34 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import {
+  siDocker,
+  siFigma,
+  siGit,
+  siNextdotjs,
+  siPostgresql,
+  siReact,
+  siShadcnui,
+  siTailwindcss,
+  siTypescript,
+  siVercel,
+} from 'simple-icons';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
 import { TOOLS } from '@/lib/constants';
+
+const LOGOS: Partial<Record<(typeof TOOLS)[number]['name'], { path: string }>> = {
+  TypeScript: siTypescript,
+  'React 19': siReact,
+  'Next.js 16': siNextdotjs,
+  'Tailwind CSS v4': siTailwindcss,
+  'shadcn/ui': siShadcnui,
+  PostgreSQL: siPostgresql,
+  Docker: siDocker,
+  'Git & CI': siGit,
+  Figma: siFigma,
+  Vercel: siVercel,
+};
 
 function ToolMark({ seed }: { seed: number }) {
   const tickCount = 3 + (seed % 5);
@@ -31,6 +56,20 @@ function ToolMark({ seed }: { seed: number }) {
           strokeLinecap="round"
         />
       ))}
+    </svg>
+  );
+}
+
+function ToolLogo({ name, seed }: { name: string; seed: number }) {
+  const logo = LOGOS[name as (typeof TOOLS)[number]['name']];
+
+  if (!logo) {
+    return <ToolMark seed={seed} />;
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+      <path d={logo.path} fill="currentColor" />
     </svg>
   );
 }
@@ -71,10 +110,10 @@ function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number
         className="border-line bg-surface rounded-[var(--radius-tile)] border p-5 backdrop-blur-lg"
       >
         <div className="text-faint">
-          <ToolMark seed={index} />
+          <ToolLogo name={tool.name} seed={index} />
         </div>
         <p className="text-fg mt-3 text-[15px] font-medium">{tool.name}</p>
-        <p className="text-dim mt-1 text-[13px]">{tool.why}</p>
+        <p className="text-dim mt-1 text-[13px]">{tool.usage}</p>
       </motion.div>
     </motion.div>
   );
@@ -95,15 +134,14 @@ export function ToolsGrid() {
       >
         <div>
           <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">
-            02 — Tools I use
+            02 / Tools I use
           </p>
           <h2 className="font-display text-fg mt-3 text-[32px] leading-tight font-extrabold tracking-[-0.03em] lg:text-[52px]">
             What I reach for, and why.
           </h2>
         </div>
         <p className="text-body max-w-sm text-[16px]">
-          Typed end to end, tested before merge, deployed on green. Boring on purpose — the
-          interesting part should be the product.
+          Typed end to end, tested before merge, and deployed only after everything passes.
         </p>
       </motion.div>
 

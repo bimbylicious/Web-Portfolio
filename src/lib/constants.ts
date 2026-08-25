@@ -2,7 +2,7 @@ export const SITE_NAME = 'Bimby Sanchez';
 export const SITE_OWNER = 'Raphael Miguel A. Sanchez';
 export const SITE_TAGLINE = 'Full-stack & cloud engineer';
 export const SITE_DESCRIPTION =
-  'Portfolio and technical writing from Raphael Miguel A. Sanchez (Bimby) — full-stack and cloud engineering, infrastructure resilience, and security.';
+  'Portfolio and technical writing from Raphael Miguel A. Sanchez (Bimby), covering full-stack and cloud engineering, infrastructure resilience, and security.';
 export const SITE_URL = 'https://example.com';
 
 export const SKILLS = [
@@ -18,18 +18,24 @@ export const SKILLS = [
 ] as const;
 
 export const TOOLS = [
-  { name: 'TypeScript', why: "Types are the spec — I don't ship without them." },
-  { name: 'React 19', why: 'Server components first, state kept at the leaf.' },
-  { name: 'Next.js 16', why: 'App Router, streamed and cached deliberately.' },
-  { name: 'Tailwind CSS v4', why: 'Tokens in one place, no stray hex values.' },
-  { name: 'shadcn/ui', why: 'Radix underneath — accessible by default.' },
-  { name: 'PostgreSQL', why: 'Constraints live in the database, not the app.' },
-  { name: 'AWS', why: "Where the capstone's topology sandbox models real infrastructure." },
-  { name: 'Docker', why: 'Same image locally and in CI.' },
-  { name: 'Git & CI', why: 'Lint, typecheck, test, build — every PR, before it merges.' },
-  { name: 'Playwright', why: 'Smoke tests on the paths that actually matter.' },
-  { name: 'Figma', why: 'Where every layout starts, before a line of code.' },
-  { name: 'Vercel', why: 'Preview per PR, production on merge.' },
+  { name: 'TypeScript', usage: 'Used for the frontend and API layer on both dashboards.' },
+  { name: 'React 19', usage: 'Builds the interactive UI for both dashboards.' },
+  { name: 'Next.js 16', usage: 'Powers this portfolio, including routing and API routes.' },
+  { name: 'Tailwind CSS v4', usage: 'Handles styling and layout for this site.' },
+  { name: 'shadcn/ui', usage: 'Provides accessible UI components built on Radix.' },
+  { name: 'PostgreSQL', usage: 'Stores application data for both dashboards.' },
+  { name: 'AWS', usage: 'Modeled as the target infrastructure in the capstone simulation.' },
+  { name: 'Docker', usage: 'Used for consistent local development environments.' },
+  {
+    name: 'Git & CI',
+    usage: 'Version control, with lint, typecheck, test, and build on every pull request.',
+  },
+  { name: 'Playwright', usage: 'Runs end-to-end tests on key user flows.' },
+  { name: 'Figma', usage: 'Used for planning layouts before implementation.' },
+  {
+    name: 'Vercel',
+    usage: 'Hosts and deploys this portfolio, with a preview for every pull request.',
+  },
 ] as const;
 
 export const NAV_LINKS = [
