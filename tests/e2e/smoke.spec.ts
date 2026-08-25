@@ -6,6 +6,32 @@ test('home page loads and links to projects', async ({ page }) => {
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible();
 });
 
+test('home page hero headline and primary CTA render', async ({ page }) => {
+  await page.goto('/');
+  await expect(
+    page.getByRole('heading', { level: 1, name: /interfaces for infrastructure/i }),
+  ).toBeVisible();
+  await expect(page.getByRole('link', { name: 'See the work' })).toBeVisible();
+});
+
+test('home page renders correctly with reduced motion forced', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+
+  await expect(
+    page.getByRole('heading', { level: 1, name: /interfaces for infrastructure/i }),
+  ).toBeVisible();
+
+  const workCard = page.locator('article').first();
+  await expect(workCard).toBeVisible();
+  await expect(workCard).toHaveCSS('opacity', '1');
+
+  const toolsHeading = page.getByRole('heading', { level: 2, name: /what i reach for, and why/i });
+  await toolsHeading.scrollIntoViewIfNeeded();
+  await expect(toolsHeading).toBeVisible();
+  await expect(page.getByText(/types are the spec/i)).toBeVisible();
+});
+
 test('project detail page renders', async ({ page }) => {
   await page.goto('/projects/cloud-resiliency-dashboard');
   await expect(
