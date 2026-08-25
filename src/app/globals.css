@@ -14,8 +14,6 @@
   --color-paper: var(--paper);
   --color-slate: var(--slate);
   --color-signal-blue: var(--signal-blue);
-  --color-amber: var(--amber);
-  --color-teal: var(--teal);
   --font-display: var(--font-syne);
   --color-bg: var(--df-bg);
   --color-fg: var(--df-fg);
@@ -74,8 +72,6 @@
   --paper: #f7f8fa;
   --slate: #1e2a4a;
   --signal-blue: #4c6fff;
-  --amber: #e8a33d;
-  --teal: #2dd4bf;
 
   /* Depth Field palette (homepage redesign, in progress) */
   --df-bg: #07060d;
@@ -101,15 +97,15 @@
   --secondary-foreground: var(--slate);
   --muted: #eef1f8;
   --muted-foreground: #55618a;
-  --accent: var(--amber);
+  --accent: var(--signal-blue);
   --accent-foreground: var(--ink-navy);
   --destructive: oklch(0.577 0.245 27.325);
   --border: #e1e4ec;
   --input: #e1e4ec;
   --ring: var(--signal-blue);
   --chart-1: var(--signal-blue);
-  --chart-2: var(--amber);
-  --chart-3: var(--teal);
+  --chart-2: var(--signal-blue);
+  --chart-3: var(--slate);
   --chart-4: var(--slate);
   --chart-5: var(--ink-navy);
   --radius: 0.5rem;
@@ -117,7 +113,7 @@
   --sidebar-foreground: var(--slate);
   --sidebar-primary: var(--signal-blue);
   --sidebar-primary-foreground: var(--ink-navy);
-  --sidebar-accent: var(--amber);
+  --sidebar-accent: var(--signal-blue);
   --sidebar-accent-foreground: var(--ink-navy);
   --sidebar-border: #e1e4ec;
   --sidebar-ring: var(--signal-blue);
