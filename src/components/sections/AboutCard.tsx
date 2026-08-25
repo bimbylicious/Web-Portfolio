@@ -14,21 +14,21 @@ export function AboutCard() {
             </ul>
           </div>
           <div>
-            <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">03 — About</p>
+            <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">03 / About</p>
             <h2 className="font-display text-fg mt-3 text-[32px] leading-tight font-extrabold tracking-[-0.03em] lg:text-[46px]">
               I like the problems that only show up at scale.
             </h2>
             <div className="text-body mt-5 space-y-4 text-[16px]">
               <p>
-                Most of my work has been internal: the consoles that operations, platform and data
+                Most of my work has been internal: the consoles that operations, platform, and data
                 teams open first thing in the morning and keep open all day. They rarely get design
-                attention, and they are where a bad interface costs the most — a mislabelled column
-                becomes a wrong invoice, a hidden state becomes an outage nobody noticed.
+                attention, and they are where a bad interface costs the most. A mislabelled column
+                becomes a wrong invoice, and a hidden state becomes an outage nobody noticed.
               </p>
               <p>
                 [Two or three sentences in your own voice: how you got into this, what you&apos;re
                 deliberately getting better at, and what kind of team you want to join next. This is
-                the paragraph a recruiter reads if the work has already convinced them — make it
+                the paragraph a recruiter reads if the work has already convinced them. Make it
                 sound like a person, not a résumé.]
               </p>
             </div>

@@ -79,7 +79,7 @@ export function ContactForm() {
       </Button>
       {status === 'success' && (
         <p role="status" className="text-sm text-muted-foreground">
-          Thanks — your message has been sent.
+          Thanks. Your message has been sent.
         </p>
       )}
       {status === 'error' && (

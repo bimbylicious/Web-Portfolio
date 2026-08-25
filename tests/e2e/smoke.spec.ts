@@ -29,7 +29,7 @@ test('home page renders correctly with reduced motion forced', async ({ page }) 
   const toolsHeading = page.getByRole('heading', { level: 2, name: /what i reach for, and why/i });
   await toolsHeading.scrollIntoViewIfNeeded();
   await expect(toolsHeading).toBeVisible();
-  await expect(page.getByText(/types are the spec/i)).toBeVisible();
+  await expect(page.getByText(/frontend and api layer/i)).toBeVisible();
 });
 
 test('project detail page renders', async ({ page }) => {

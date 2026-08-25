@@ -2,7 +2,7 @@
 title: 'Cloud Resiliency Management Dashboard'
 slug: 'cloud-resiliency-dashboard'
 summary: 'A capstone project simulating infrastructure cascade failures and cloud resiliency patterns through an in-browser topology simulation engine, with a full Express/Prisma backend preserved for documentation.'
-role: 'Solo developer — capstone project'
+role: 'Solo developer, capstone project'
 stack:
   [
     'React',
@@ -25,25 +25,25 @@ links:
   repo: 'https://github.com/bimbylicious/CAPSTONE-Cloud-Management-Dashboard-'
 featured: true
 category: 'Capstone project'
-dateRange: '2025—2026'
-spotlightTagline: 'Draw a network on screen, break it on purpose, and watch it recover — a sandbox for testing cloud resiliency before it costs real money.'
+dateRange: '2025 to 2026'
+spotlightTagline: 'A sandbox for testing cloud resiliency patterns. Build a network topology, simulate failures against it, and observe how it recovers, before any of it touches a real cloud account.'
 coverImage: '/projects/cloud-resiliency-dashboard/topology-canvas.png'
 coverImageAlt: 'Topology canvas showing three EC2 instances behind a load balancer, with live CPU, memory, and throughput metrics per node.'
 spotlightVideo: '/projects/cloud-resiliency-dashboard/demo.mp4'
 media:
   - type: 'video'
     src: '/projects/cloud-resiliency-dashboard/demo.mp4'
-    caption: 'A mixed-hardware cluster under sustained load — CPU and memory climb from healthy to Degraded to Overloaded as the weakest instance saturates, then recovers.'
+    caption: 'A mixed-hardware cluster under sustained load. CPU and memory climb from healthy to Degraded to Overloaded as the weakest instance saturates, then recovers.'
   - type: 'image'
     src: '/projects/cloud-resiliency-dashboard/report-summary.png'
     alt: 'Generated simulation report showing canvas layout, topology configuration, and peak-performance utilization across three instances.'
-    caption: 'Auto-generated report summarizing a completed simulation run — topology snapshot, config, and peak utilization per instance.'
+    caption: 'Auto-generated report summarizing a completed simulation run, including topology snapshot, configuration, and peak utilization per instance.'
 date: '2026-05-16'
 ---
 
 ## Overview
 
-Capstone project for Southville International School and Colleges, CITE — defended
+Capstone project for Southville International School and Colleges, CITE, defended
 May 2026. The dashboard lets a user build a network topology on a drag-and-drop
 canvas and simulate cascade failures, load-balancer behavior, and auto-scaling
 against it, watching resilience metrics update live.
@@ -52,12 +52,12 @@ against it, watching resilience metrics update live.
 
 The app runs two simulation engines that coexist in the same codebase:
 
-- **Active — client-side simulation engine**: a Zustand store holds all topology
+- **Active, client-side simulation engine**: a Zustand store holds all topology
   and runtime state in-browser, bridged into the existing React Query cache so
   the Dashboard and Resources pages render simulator data exactly as they would
   render live backend data. The `/topology` page provides the canvas, node
   palette, load-balancer config panel, simulation controls, and an event log.
-- **Legacy — backend-driven simulation**: an Express API with Prisma/PostgreSQL
+- **Legacy, backend-driven simulation**: an Express API with Prisma/PostgreSQL
   and node-cron worker jobs (system evaluator, failover executor, health
   checker, auto-scaler, threshold evaluator). This pipeline is fully preserved
   for capstone documentation and can be re-enabled via environment flags, but is

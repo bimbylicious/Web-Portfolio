@@ -33,16 +33,16 @@ export function DepthHero() {
         {...stagger(1)}
         className="font-display text-fg mt-8 w-full max-w-4xl text-[42px] leading-[1.05] font-extrabold tracking-[-0.04em] break-words lg:max-w-6xl lg:text-[94px]"
       >
-        Interfaces for infrastructure{' '}
+        Full-stack interfaces for{' '}
         <span className="from-violet to-cyan bg-gradient-to-r bg-clip-text text-transparent">
-          nobody wants to think about
+          infrastructure and data systems
         </span>
         .
       </motion.h1>
 
       <motion.p {...stagger(2)} className="text-body mt-6 max-w-xl text-[16px]">
-        A cascade-failure simulator for cloud infrastructure and an employee master-data console —
-        two dashboards built solo, owned from data model to the last hover state.
+        A cascade-failure simulator for cloud infrastructure, and an employee master data console.
+        Both built solo, end to end.
       </motion.p>
 
       <motion.div

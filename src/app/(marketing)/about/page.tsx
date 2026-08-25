@@ -27,13 +27,13 @@ export default function AboutPage() {
           <p>
             I&apos;m a BSIT graduate (Cum Laude) from Southville International School and Colleges,
             specializing in Information and Cybersecurity. My work sits at the intersection of
-            full-stack development and infrastructure resilience — building tools that make systems
+            full-stack development and infrastructure resilience, building tools that make systems
             easier to observe, secure, and reason about.
           </p>
           <p>
             During my OJT at First Balfour, Inc., I built a Masterdata Management Application
             (React, Node.js/Express, PostgreSQL) that replaced a manual, spreadsheet-based process
-            for tracking employee and asset records — with role-based access control and a real-time
+            for tracking employee and asset records, with role-based access control and a real-time
             equipment-assignment dashboard.
           </p>
           <p>
@@ -41,8 +41,8 @@ export default function AboutPage() {
             <Link href="/projects/cloud-resiliency-dashboard" className="text-foreground underline">
               Cloud Resiliency Management Dashboard
             </Link>
-            , is a full-stack AWS infrastructure sandbox for cloud migration planning — an
-            interactive topology canvas plus a load-balancing and capacity simulation engine, built
+            , is a full-stack AWS infrastructure sandbox for cloud migration planning, with an
+            interactive topology canvas and a load-balancing and capacity simulation engine, built
             solo with React 18/Vite, Node.js/Express, and PostgreSQL/Prisma on Supabase.
           </p>
           <p>
