@@ -20,9 +20,14 @@ export function TransitionLink({
       return;
     }
     event.preventDefault();
-    const x = (event.clientX / window.innerWidth) * 100;
-    const y = (event.clientY / window.innerHeight) * 100;
-    navigate(href, { x, y });
+    const originEl = event.currentTarget.closest('article') ?? event.currentTarget;
+    const rect = originEl.getBoundingClientRect();
+    navigate(href, {
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+    });
   }
 
   return (

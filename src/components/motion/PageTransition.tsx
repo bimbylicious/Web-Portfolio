@@ -13,11 +13,12 @@ import {
 } from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 
-type Origin = { x: number; y: number };
+export type OriginRect = { top: number; left: number; width: number; height: number };
 
 const REVEAL_SAFETY_TIMEOUT_MS = 4000;
+const FULLSCREEN_INSET = '0px 0px 0px 0px';
 
-const TransitionContext = createContext<((href: string, origin?: Origin) => void) | null>(null);
+const TransitionContext = createContext<((href: string, rect?: OriginRect) => void) | null>(null);
 
 export function useIrisTransition() {
   const navigate = useContext(TransitionContext);
@@ -27,25 +28,25 @@ export function useIrisTransition() {
   return navigate;
 }
 
+function insetFromRect(rect: OriginRect) {
+  const right = window.innerWidth - (rect.left + rect.width);
+  const bottom = window.innerHeight - (rect.top + rect.height);
+  return `${rect.top}px ${right}px ${bottom}px ${rect.left}px`;
+}
+
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const shouldReduceMotion = useReducedMotionSafe();
   const [phase, setPhase] = useState<'idle' | 'covering' | 'revealing'>('idle');
-  const [origin, setOrigin] = useState<Origin>({ x: 50, y: 50 });
+  const [originInset, setOriginInset] = useState(FULLSCREEN_INSET);
   const isTransitioningRef = useRef(false);
   const departurePathnameRef = useRef(pathname);
   const animationDoneRef = useRef(false);
   const routeChangedRef = useRef(false);
 
-  const reveal = useCallback(() => {
-    animationDoneRef.current = true;
-    routeChangedRef.current = true;
-    setPhase('revealing');
-  }, []);
-
   const navigate = useCallback(
-    (href: string, origin?: Origin) => {
+    (href: string, rect?: OriginRect) => {
       if (shouldReduceMotion) {
         router.push(href);
         return;
@@ -55,7 +56,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       animationDoneRef.current = false;
       routeChangedRef.current = false;
       departurePathnameRef.current = pathname;
-      if (origin) setOrigin(origin);
+      if (rect) setOriginInset(insetFromRect(rect));
       setPhase('covering');
       router.push(href);
     },
@@ -70,11 +71,13 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (phase !== 'covering') return;
-    const timeout = setTimeout(reveal, REVEAL_SAFETY_TIMEOUT_MS);
+    const timeout = setTimeout(() => {
+      animationDoneRef.current = true;
+      routeChangedRef.current = true;
+      setPhase('revealing');
+    }, REVEAL_SAFETY_TIMEOUT_MS);
     return () => clearTimeout(timeout);
-  }, [phase, reveal]);
-
-  const { x, y } = origin;
+  }, [phase]);
 
   return (
     <TransitionContext.Provider value={navigate}>
@@ -82,17 +85,19 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       {phase !== 'idle' && (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-[200]"
-          style={{
-            pointerEvents: phase === 'covering' ? 'auto' : 'none',
-            background: `radial-gradient(circle at ${x}% ${y}%, var(--color-violet) 0%, var(--color-pink) 20%, var(--color-bg) 60%)`,
-          }}
-          initial={{ clipPath: `circle(0% at ${x}% ${y}%)` }}
-          animate={{
-            clipPath:
-              phase === 'covering' ? `circle(150% at ${x}% ${y}%)` : `circle(0% at ${x}% ${y}%)`,
-          }}
-          transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          className="bg-bg pointer-events-none fixed inset-0 z-[200]"
+          style={{ pointerEvents: phase === 'covering' ? 'auto' : 'none' }}
+          initial={{ clipPath: `inset(${originInset})`, opacity: 1 }}
+          animate={
+            phase === 'covering'
+              ? { clipPath: `inset(${FULLSCREEN_INSET})`, opacity: 1 }
+              : { opacity: 0 }
+          }
+          transition={
+            phase === 'covering'
+              ? { duration: 0.6, ease: [0.76, 0, 0.24, 1] }
+              : { duration: 0.4, ease: 'easeOut' }
+          }
           onAnimationComplete={() => {
             if (phase === 'covering') {
               animationDoneRef.current = true;
