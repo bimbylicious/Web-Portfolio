@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono, Syne } from 'next/font/google';
+import { PageTransitionProvider } from '@/components/motion/PageTransition';
 import { Footer } from '@/components/sections/Footer';
 import { Nav } from '@/components/sections/Nav';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
@@ -42,9 +43,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       className={`${inter.variable} ${jetBrainsMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Nav />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <PageTransitionProvider>
+          <Nav />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </PageTransitionProvider>
       </body>
     </html>
   );

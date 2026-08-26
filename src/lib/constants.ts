@@ -49,7 +49,7 @@ export const TOOLS = [
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
+  { href: '/#selected-work', label: 'Projects' },
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
 ] as const;

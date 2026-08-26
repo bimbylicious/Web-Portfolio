@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRef } from 'react';
+import { TransitionLink } from '@/components/motion/TransitionLink';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
 import type { Project } from '@/types/content';
@@ -99,12 +99,12 @@ export function WorkCard({
             ))}
           </dl>
         )}
-        <Link
+        <TransitionLink
           href={`/projects/${project.slug}`}
           className="df-focus text-fg mt-6 inline-flex items-center gap-1.5 font-medium hover:underline"
         >
           Read the case study <span aria-hidden="true">→</span>
-        </Link>
+        </TransitionLink>
       </div>
       <div className={`relative min-h-[240px] ${reverse ? 'lg:order-1' : 'lg:order-2'}`}>
         <WorkPreview project={project} />

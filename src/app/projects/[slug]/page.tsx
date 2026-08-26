@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { AmbientField } from '@/components/motion/AmbientField';
 import { Reveal } from '@/components/motion/Reveal';
+import { TransitionLink } from '@/components/motion/TransitionLink';
 import { ProjectMediaGallery } from '@/components/sections/ProjectMediaGallery';
 import { getAllProjects, getProjectBySlug } from '@/lib/mdx';
 
@@ -39,7 +40,13 @@ export default async function ProjectPage(props: PageProps<'/projects/[slug]'>) 
       <AmbientField />
       <article className="relative mx-auto max-w-3xl px-6 py-24">
         <Reveal>
-          <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">
+          <TransitionLink
+            href="/#selected-work"
+            className="df-focus text-dim hover:text-fg inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.12em] uppercase transition-colors"
+          >
+            <span aria-hidden="true">←</span> Back to work
+          </TransitionLink>
+          <p className="text-dim mt-8 font-mono text-[11px] tracking-[0.12em] uppercase">
             {project.category ?? project.role}
             {project.dateRange ? ` · ${project.dateRange}` : ''}
           </p>

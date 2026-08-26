@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/constants';
 import { getAllProjects } from '@/lib/mdx';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ['', '/projects'].map((route) => ({
+  const staticRoutes = [''].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: new Date(),
   }));

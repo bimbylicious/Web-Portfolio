@@ -49,10 +49,17 @@ test('about and contact are homepage anchors, not separate pages', async ({ page
   await nav.getByRole('link', { name: 'Contact' }).click();
   await expect(page).toHaveURL(/\/#contact$/);
 
-  for (const path of ['/about', '/contact', '/writing']) {
+  for (const path of ['/about', '/contact', '/writing', '/projects']) {
     const response = await request.get(path);
     expect(response.status()).toBe(404);
   }
+});
+
+test('case study back button returns to the homepage work section', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/projects/cloud-resiliency-dashboard');
+  await page.getByRole('link', { name: /back to work/i }).click();
+  await expect(page).toHaveURL(/\/#selected-work$/);
 });
 
 test('clicking the contact email copies it to the clipboard', async ({ page, context }) => {
