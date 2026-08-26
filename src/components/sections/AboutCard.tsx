@@ -6,10 +6,9 @@ export function AboutCard() {
       <Reveal>
         <div className="border-line bg-surface grid gap-10 rounded-[var(--radius-card)] border p-8 backdrop-blur-lg lg:grid-cols-[280px_1fr] lg:p-10">
           <div>
-            <div className="border-line bg-bg aspect-square rounded-[var(--radius-tile)] border border-dashed" />
-            <ul className="mt-5 space-y-2 font-mono text-[10.5px] tracking-[0.1em] uppercase">
+            <ul className="space-y-2 font-mono text-[10.5px] tracking-[0.1em] uppercase">
               <li className="text-dim">Las Piñas, Philippines · UTC+8</li>
-              <li className="text-dim">[N] years building production UI</li>
+              <li className="text-dim">Building production UI since 2024</li>
               <li className="text-dim">Open to junior dev roles</li>
             </ul>
           </div>
@@ -26,10 +25,11 @@ export function AboutCard() {
                 becomes a wrong invoice, and a hidden state becomes an outage nobody noticed.
               </p>
               <p>
-                [Two or three sentences in your own voice: how you got into this, what you&apos;re
-                deliberately getting better at, and what kind of team you want to join next. This is
-                the paragraph a recruiter reads if the work has already convinced them. Make it
-                sound like a person, not a résumé.]
+                I started building production UI in 2024, working through coursework projects before
+                an OJT placement where I shipped an internal tool that replaced a spreadsheet-based
+                process for an entire department. I am currently focused on strengthening my backend
+                and cloud fundamentals, and I am looking to join a team where I can keep working on
+                real, production systems rather than prototypes.
               </p>
             </div>
             <dl className="border-line mt-6 grid grid-cols-2 gap-6 border-t pt-6">
