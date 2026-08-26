@@ -17,6 +17,15 @@ export const SKILLS = [
   'Power BI',
 ] as const;
 
+export const CERTIFICATIONS = [
+  'Microsoft Certified: Security, Compliance, and Identity Fundamentals (SC-900)',
+  'Microsoft Certified: Azure Fundamentals (AZ-900)',
+  'Google: Foundations of Project Management',
+  'IBM: Ethical Hacking',
+  'Cisco: Network Defense',
+  'Internet Society: Encryption Certificate',
+] as const;
+
 export const TOOLS = [
   { name: 'TypeScript', usage: 'Used for the frontend and API layer on both dashboards.' },
   { name: 'React 19', usage: 'Builds the interactive UI for both dashboards.' },
@@ -41,9 +50,8 @@ export const TOOLS = [
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
-  { href: '/writing', label: 'Writing' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/#about', label: 'About' },
+  { href: '/#contact', label: 'Contact' },
 ] as const;
 
 export const SOCIAL_LINKS = [

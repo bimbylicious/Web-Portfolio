@@ -39,20 +39,28 @@ test('project detail page renders', async ({ page }) => {
   ).toBeVisible();
 });
 
-test('contact form submits successfully', async ({ page }) => {
-  await page.route('**/api/contact', async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ ok: true }),
-    });
-  });
+test('about and contact are homepage anchors, not separate pages', async ({ page, request }) => {
+  await page.goto('/');
+  const nav = page.getByRole('navigation', { name: 'Primary' });
+  await nav.getByRole('link', { name: 'About' }).click();
+  await expect(page).toHaveURL(/\/#about$/);
+  await expect(
+    page.getByRole('heading', { level: 2, name: /problems that only show up at scale/i }),
+  ).toBeVisible();
 
-  await page.goto('/contact');
-  await page.getByLabel('Name').fill('Test User');
-  await page.getByLabel('Email').fill('test@example.com');
-  await page.getByLabel('Message').fill('Hello, this is a test message.');
-  await page.getByRole('button', { name: 'Send message' }).click();
+  await nav.getByRole('link', { name: 'Contact' }).click();
+  await expect(page).toHaveURL(/\/#contact$/);
 
-  await expect(page.getByRole('status')).toHaveText(/thanks/i);
+  for (const path of ['/about', '/contact', '/writing']) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(404);
+  }
+});
+
+test('clicking the contact email copies it to the clipboard', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/#contact');
+  await page.getByRole('button', { name: /raphaelmiguelsanchezz@gmail\.com/i }).click();
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toBe('raphaelmiguelsanchezz@gmail.com');
 });

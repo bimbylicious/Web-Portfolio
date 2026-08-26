@@ -1,8 +1,23 @@
+'use client';
+
+import { useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
 
 const CONTACT_EMAIL = 'raphaelmiguelsanchezz@gmail.com';
 
 export function ContactCTA() {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API unavailable; the email is still visible to copy manually.
+    }
+  }
+
   return (
     <section id="contact" className="relative mx-auto max-w-3xl px-6 py-32 text-center">
       <Reveal>
@@ -11,16 +26,16 @@ export function ContactCTA() {
           Looking for a developer who can own a project end to end? I would like to hear from you.
         </h2>
         <p className="text-body mx-auto mt-6 max-w-md text-[16px]">
-          Fastest reply is by email. I typically respond within a day, including messages that turn
-          out not to be a fit.
+          Fastest reply is by email. Click below to copy my address.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
+          <button
+            type="button"
+            onClick={handleCopy}
             className="df-focus bg-fg text-bg inline-flex min-h-11 items-center rounded-[var(--radius-pill)] px-6 py-3 font-medium transition-transform hover:scale-[1.03]"
           >
-            {CONTACT_EMAIL}
-          </a>
+            {copied ? 'Copied to clipboard' : CONTACT_EMAIL}
+          </button>
           <a
             href="/resume.pdf"
             target="_blank"

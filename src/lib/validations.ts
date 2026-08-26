@@ -43,11 +43,3 @@ export const projectFrontmatterSchema = z
     message: 'coverImageAlt is required whenever coverImage is set',
     path: ['coverImageAlt'],
   });
-
-export const postFrontmatterSchema = z.object({
-  title: z.string(),
-  slug: z.string(),
-  summary: z.string(),
-  date: z.string(),
-  tags: z.array(z.string()).optional(),
-});
