@@ -26,12 +26,29 @@ function GalleryVideo({ src, caption }: { src: string; caption?: string }) {
   );
 }
 
-function GalleryImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
+function GalleryImage({
+  src,
+  alt,
+  caption,
+  width,
+  height,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}) {
   return (
-    <figure>
-      <div className="border-line bg-surface relative aspect-video overflow-hidden rounded-[var(--radius-tile)] border">
-        <Image src={src} alt={alt} fill className="object-cover" />
-      </div>
+    <figure className="sm:col-span-2">
+      <Image
+        src={src}
+        alt={alt}
+        width={width ?? 1920}
+        height={height ?? 1080}
+        sizes="(min-width: 1024px) 768px, 100vw"
+        className="border-line bg-surface w-full rounded-[var(--radius-tile)] border"
+      />
       {caption && <figcaption className="text-dim mt-2 text-xs">{caption}</figcaption>}
     </figure>
   );
@@ -51,6 +68,8 @@ export function ProjectMediaGallery({ media }: { media: NonNullable<Project['med
             src={item.src}
             alt={item.alt ?? ''}
             caption={item.caption}
+            width={item.width}
+            height={item.height}
           />
         ),
       )}
