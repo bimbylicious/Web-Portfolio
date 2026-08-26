@@ -1,11 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 
 type Origin = { x: number; y: number };
+
+const REVEAL_SAFETY_TIMEOUT_MS = 4000;
 
 const TransitionContext = createContext<((href: string, origin?: Origin) => void) | null>(null);
 
@@ -19,10 +29,20 @@ export function useIrisTransition() {
 
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const shouldReduceMotion = useReducedMotionSafe();
   const [phase, setPhase] = useState<'idle' | 'covering' | 'revealing'>('idle');
   const [origin, setOrigin] = useState<Origin>({ x: 50, y: 50 });
   const isTransitioningRef = useRef(false);
+  const departurePathnameRef = useRef(pathname);
+  const animationDoneRef = useRef(false);
+  const routeChangedRef = useRef(false);
+
+  const reveal = useCallback(() => {
+    animationDoneRef.current = true;
+    routeChangedRef.current = true;
+    setPhase('revealing');
+  }, []);
 
   const navigate = useCallback(
     (href: string, origin?: Origin) => {
@@ -32,12 +52,27 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       }
       if (isTransitioningRef.current) return;
       isTransitioningRef.current = true;
+      animationDoneRef.current = false;
+      routeChangedRef.current = false;
+      departurePathnameRef.current = pathname;
       if (origin) setOrigin(origin);
       setPhase('covering');
       router.push(href);
     },
-    [router, shouldReduceMotion],
+    [router, shouldReduceMotion, pathname],
   );
+
+  useEffect(() => {
+    if (phase !== 'covering' || pathname === departurePathnameRef.current) return;
+    routeChangedRef.current = true;
+    if (animationDoneRef.current) setPhase('revealing');
+  }, [pathname, phase]);
+
+  useEffect(() => {
+    if (phase !== 'covering') return;
+    const timeout = setTimeout(reveal, REVEAL_SAFETY_TIMEOUT_MS);
+    return () => clearTimeout(timeout);
+  }, [phase, reveal]);
 
   const { x, y } = origin;
 
@@ -47,8 +82,11 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       {phase !== 'idle' && (
         <motion.div
           aria-hidden="true"
-          className="from-violet to-cyan pointer-events-none fixed inset-0 z-[200] bg-gradient-to-br"
-          style={{ pointerEvents: phase === 'covering' ? 'auto' : 'none' }}
+          className="pointer-events-none fixed inset-0 z-[200]"
+          style={{
+            pointerEvents: phase === 'covering' ? 'auto' : 'none',
+            background: `radial-gradient(circle at ${x}% ${y}%, var(--color-violet) 0%, var(--color-pink) 20%, var(--color-bg) 60%)`,
+          }}
           initial={{ clipPath: `circle(0% at ${x}% ${y}%)` }}
           animate={{
             clipPath:
@@ -57,7 +95,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
           onAnimationComplete={() => {
             if (phase === 'covering') {
-              requestAnimationFrame(() => requestAnimationFrame(() => setPhase('revealing')));
+              animationDoneRef.current = true;
+              if (routeChangedRef.current) setPhase('revealing');
             } else if (phase === 'revealing') {
               isTransitioningRef.current = false;
               setPhase('idle');
