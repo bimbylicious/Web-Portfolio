@@ -9,7 +9,7 @@ function GalleryVideo({ src, caption }: { src: string; caption?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <figure>
+    <figure className="sm:col-span-2">
       <motion.video
         ref={videoRef}
         src={src}
