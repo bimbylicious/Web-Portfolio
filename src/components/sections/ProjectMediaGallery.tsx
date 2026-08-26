@@ -16,12 +16,12 @@ function GalleryVideo({ src, caption }: { src: string; caption?: string }) {
         muted
         loop
         playsInline
-        className="w-full rounded-lg border"
+        className="border-line w-full rounded-[var(--radius-tile)] border"
         onViewportEnter={() => videoRef.current?.play()}
         onViewportLeave={() => videoRef.current?.pause()}
         viewport={{ margin: '-10%' }}
       />
-      {caption && <figcaption className="mt-2 text-xs text-muted-foreground">{caption}</figcaption>}
+      {caption && <figcaption className="text-dim mt-2 text-xs">{caption}</figcaption>}
     </figure>
   );
 }
@@ -29,10 +29,10 @@ function GalleryVideo({ src, caption }: { src: string; caption?: string }) {
 function GalleryImage({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
   return (
     <figure>
-      <div className="relative aspect-video overflow-hidden rounded-lg border bg-card">
+      <div className="border-line bg-surface relative aspect-video overflow-hidden rounded-[var(--radius-tile)] border">
         <Image src={src} alt={alt} fill className="object-cover" />
       </div>
-      {caption && <figcaption className="mt-2 text-xs text-muted-foreground">{caption}</figcaption>}
+      {caption && <figcaption className="text-dim mt-2 text-xs">{caption}</figcaption>}
     </figure>
   );
 }

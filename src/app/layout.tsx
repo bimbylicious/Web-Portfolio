@@ -1,14 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Space_Grotesk, Syne } from 'next/font/google';
+import { Inter, JetBrains_Mono, Syne } from 'next/font/google';
 import { Footer } from '@/components/sections/Footer';
 import { Nav } from '@/components/sections/Nav';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import './globals.css';
-
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
-  subsets: ['latin'],
-});
 
 const inter = Inter({
   variable: '--font-inter',
@@ -44,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetBrainsMono.variable} ${syne.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetBrainsMono.variable} ${syne.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Nav />

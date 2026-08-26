@@ -1,13 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { CardShell } from '@/components/sections/CardShell';
 import type { Project } from '@/types/content';
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <CardShell>
+    <article className="border-line bg-surface rounded-[var(--radius-card)] border p-6 backdrop-blur-lg transition-transform duration-300 ease-out hover:-translate-y-1">
       {project.coverImage && (
-        <div className="relative mb-4 aspect-video overflow-hidden rounded-md border">
+        <div className="border-line relative mb-4 aspect-video overflow-hidden rounded-[var(--radius-tile)] border">
           <Image
             src={project.coverImage}
             alt={project.coverImageAlt ?? ''}
@@ -16,22 +15,25 @@ export function ProjectCard({ project }: { project: Project }) {
           />
         </div>
       )}
-      <h3 className="font-heading text-lg font-semibold">
-        <Link href={`/projects/${project.slug}`} className="hover:underline">
+      <p className="text-dim font-mono text-[10.5px] tracking-[0.1em] uppercase">
+        {project.category ?? project.role}
+      </p>
+      <h3 className="font-display text-fg mt-2 text-lg font-bold tracking-[-0.01em]">
+        <Link href={`/projects/${project.slug}`} className="df-focus hover:text-violet">
           {project.title}
         </Link>
       </h3>
-      <p className="mt-2 text-sm text-muted-foreground">{project.summary}</p>
+      <p className="text-body mt-2 text-sm">{project.summary}</p>
       <ul className="mt-4 flex flex-wrap gap-2">
         {project.stack.map((item) => (
           <li
             key={item}
-            className="rounded-full border px-2 py-0.5 font-mono text-xs text-muted-foreground"
+            className="border-line text-dim rounded-[var(--radius-pill)] border px-2.5 py-0.5 font-mono text-[10.5px] tracking-[0.06em] uppercase"
           >
             {item}
           </li>
         ))}
       </ul>
-    </CardShell>
+    </article>
   );
 }

@@ -2,18 +2,12 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
-  --font-heading: var(--font-space-grotesk);
-  --color-ink-navy: var(--ink-navy);
-  --color-paper: var(--paper);
-  --color-slate: var(--slate);
-  --color-signal-blue: var(--signal-blue);
+  --font-heading: var(--font-syne);
   --font-display: var(--font-syne);
   --color-bg: var(--df-bg);
   --color-fg: var(--df-fg);
@@ -67,13 +61,7 @@
 }
 
 :root {
-  /* Systems & Signal palette (design spec §6.1) */
-  --ink-navy: #0b1220;
-  --paper: #f7f8fa;
-  --slate: #1e2a4a;
-  --signal-blue: #4c6fff;
-
-  /* Depth Field palette (homepage redesign, in progress) */
+  /* Depth Field palette -- the site's only theme */
   --df-bg: #07060d;
   --df-fg: #ecebf3;
   --df-muted: #a9a5c0;
@@ -85,72 +73,40 @@
   --df-surface: rgba(18, 15, 32, 0.6);
   --df-line: rgba(236, 235, 243, 0.12);
 
-  --background: var(--paper);
-  --foreground: var(--slate);
-  --card: #ffffff;
-  --card-foreground: var(--slate);
-  --popover: #ffffff;
-  --popover-foreground: var(--slate);
-  --primary: var(--signal-blue);
-  --primary-foreground: var(--ink-navy);
-  --secondary: #eef1f8;
-  --secondary-foreground: var(--slate);
-  --muted: #eef1f8;
-  --muted-foreground: #55618a;
-  --accent: var(--signal-blue);
-  --accent-foreground: var(--ink-navy);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: #e1e4ec;
-  --input: #e1e4ec;
-  --ring: var(--signal-blue);
-  --chart-1: var(--signal-blue);
-  --chart-2: var(--signal-blue);
-  --chart-3: var(--slate);
-  --chart-4: var(--slate);
-  --chart-5: var(--ink-navy);
-  --radius: 0.5rem;
-  --sidebar: var(--paper);
-  --sidebar-foreground: var(--slate);
-  --sidebar-primary: var(--signal-blue);
-  --sidebar-primary-foreground: var(--ink-navy);
-  --sidebar-accent: var(--signal-blue);
-  --sidebar-accent-foreground: var(--ink-navy);
-  --sidebar-border: #e1e4ec;
-  --sidebar-ring: var(--signal-blue);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* shadcn semantic slots, mapped onto Depth Field so any primitive built
+     against them (Button, etc.) already matches the site without overrides */
+  --background: var(--df-bg);
+  --foreground: var(--df-fg);
+  --card: #120f20;
+  --card-foreground: var(--df-fg);
+  --popover: #120f20;
+  --popover-foreground: var(--df-fg);
+  --primary: var(--df-violet);
+  --primary-foreground: var(--df-bg);
+  --secondary: #1a1730;
+  --secondary-foreground: var(--df-fg);
+  --muted: #1a1730;
+  --muted-foreground: var(--df-dim);
+  --accent: var(--df-cyan);
+  --accent-foreground: var(--df-bg);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --border: var(--df-line);
+  --input: var(--df-line);
+  --ring: var(--df-violet);
+  --chart-1: var(--df-violet);
+  --chart-2: var(--df-cyan);
+  --chart-3: var(--df-pink);
+  --chart-4: var(--df-dim);
+  --chart-5: var(--df-fg);
+  --radius: 0.5rem;
+  --sidebar: var(--df-bg);
+  --sidebar-foreground: var(--df-fg);
+  --sidebar-primary: var(--df-violet);
+  --sidebar-primary-foreground: var(--df-bg);
+  --sidebar-accent: var(--df-cyan);
+  --sidebar-accent-foreground: var(--df-bg);
+  --sidebar-border: var(--df-line);
+  --sidebar-ring: var(--df-violet);
 }
 
 @layer base {
@@ -173,7 +129,7 @@
   }
 }
 
-/* Depth Field ambient layer (homepage redesign, in progress) */
+/* Depth Field ambient layer */
 @keyframes df-grain {
   0%,
   100% {
