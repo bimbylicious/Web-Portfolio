@@ -26,7 +26,7 @@ export function ContactCTA() {
           Looking for a developer who can own a project end to end? I would like to hear from you.
         </h2>
         <p className="text-body mx-auto mt-6 max-w-md text-[16px]">
-          Fastest reply is by email. Click below to copy my address.
+          Click below to copy my email address.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <button

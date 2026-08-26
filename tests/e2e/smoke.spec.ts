@@ -44,9 +44,7 @@ test('about and contact are homepage anchors, not separate pages', async ({ page
   const nav = page.getByRole('navigation', { name: 'Primary' });
   await nav.getByRole('link', { name: 'About' }).click();
   await expect(page).toHaveURL(/\/#about$/);
-  await expect(
-    page.getByRole('heading', { level: 2, name: /problems that only show up at scale/i }),
-  ).toBeVisible();
+  await expect(page.locator('#about')).toBeInViewport();
 
   await nav.getByRole('link', { name: 'Contact' }).click();
   await expect(page).toHaveURL(/\/#contact$/);
