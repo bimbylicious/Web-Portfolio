@@ -7,8 +7,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
-  --font-heading: var(--font-bricolage-grotesque);
-  --font-display: var(--font-bricolage-grotesque);
+  --font-heading: var(--font-chakra-petch);
+  --font-display: var(--font-chakra-petch);
   --color-bg: var(--df-bg);
   --color-fg: var(--df-fg);
   --color-body: var(--df-muted);

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
+import { Chakra_Petch, Inter, JetBrains_Mono } from 'next/font/google';
 import { PageTransitionProvider } from '@/components/motion/PageTransition';
 import { Footer } from '@/components/sections/Footer';
 import { Nav } from '@/components/sections/Nav';
@@ -16,9 +16,10 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
 });
 
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: '--font-bricolage-grotesque',
+const chakraPetch = Chakra_Petch({
+  variable: '--font-chakra-petch',
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetBrainsMono.variable} ${bricolageGrotesque.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetBrainsMono.variable} ${chakraPetch.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <PageTransitionProvider>
