@@ -1,7 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
+
+function usePageVisible() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => setIsVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  return isVisible;
+}
 
 const LIGHTS = [
   { top: '0%', left: '8%', color: 'var(--color-violet)', size: 520, duration: 26 },
@@ -14,6 +27,8 @@ const LIGHTS = [
 
 export function AmbientField() {
   const shouldReduceMotion = useReducedMotionSafe();
+  const isPageVisible = usePageVisible();
+  const shouldAnimate = !shouldReduceMotion && isPageVisible;
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -32,18 +47,18 @@ export function AmbientField() {
             willChange: 'transform',
           }}
           animate={
-            shouldReduceMotion
-              ? undefined
-              : {
+            shouldAnimate
+              ? {
                   translateX: [0, 30, -20, 0],
                   translateY: [0, -20, 15, 0],
                   scale: [1, 1.08, 0.96, 1],
                 }
+              : undefined
           }
           transition={
-            shouldReduceMotion
-              ? undefined
-              : { duration: light.duration, repeat: Infinity, ease: 'easeInOut' }
+            shouldAnimate
+              ? { duration: light.duration, repeat: Infinity, ease: 'easeInOut' }
+              : undefined
           }
         />
       ))}

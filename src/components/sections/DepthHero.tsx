@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { Magnetic } from '@/components/motion/Magnetic';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp } from '@/lib/motion';
 
@@ -49,20 +50,24 @@ export function DepthHero() {
         {...stagger(3)}
         className="mt-10 flex flex-wrap items-center justify-center gap-4"
       >
-        <Link
-          href="#selected-work"
-          className="df-focus bg-fg text-bg inline-flex min-h-11 items-center rounded-[var(--radius-pill)] px-6 py-3 font-medium transition-transform hover:scale-[1.03]"
-        >
-          See the work
-        </Link>
-        <a
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="df-focus border-line text-fg hover:bg-surface inline-flex min-h-11 items-center rounded-[var(--radius-pill)] border px-6 py-3 font-medium transition-colors"
-        >
-          Résumé
-        </a>
+        <Magnetic>
+          <Link
+            href="#selected-work"
+            className="df-focus bg-fg text-bg inline-flex min-h-11 items-center rounded-[var(--radius-pill)] px-6 py-3 font-medium transition-transform hover:scale-[1.03]"
+          >
+            See the work
+          </Link>
+        </Magnetic>
+        <Magnetic>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="df-focus border-line text-fg hover:bg-surface inline-flex min-h-11 items-center rounded-[var(--radius-pill)] border px-6 py-3 font-medium transition-colors"
+          >
+            Résumé
+          </a>
+        </Magnetic>
       </motion.div>
     </section>
   );

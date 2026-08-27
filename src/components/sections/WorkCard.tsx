@@ -19,7 +19,7 @@ function WorkPreview({ project }: { project: Project }) {
         muted
         loop
         playsInline
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         onViewportEnter={() => videoRef.current?.play()}
         onViewportLeave={() => videoRef.current?.pause()}
         viewport={{ margin: '-10%' }}
@@ -36,7 +36,7 @@ function WorkPreview({ project }: { project: Project }) {
         src={project.coverImage}
         alt={project.coverImageAlt ?? ''}
         fill
-        className="object-cover"
+        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
       />
     );
   }
@@ -66,7 +66,10 @@ export function WorkCard({
       animate={shouldReduceMotion ? revealUp.visible : undefined}
       viewport={SCROLL_VIEWPORT}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: DURATION.base, ease: EASE }}
-      className="border-line bg-surface grid overflow-hidden rounded-[var(--radius-card)] border backdrop-blur-lg lg:grid-cols-2"
+      whileHover={
+        shouldReduceMotion ? undefined : { y: -6, transition: { duration: 0.25, ease: 'easeOut' } }
+      }
+      className="border-line bg-surface group grid overflow-hidden rounded-[var(--radius-card)] border backdrop-blur-lg transition-shadow duration-300 hover:shadow-2xl hover:shadow-black/40 lg:grid-cols-2"
     >
       <div className={`p-8 lg:p-10 ${reverse ? 'lg:order-2' : 'lg:order-1'}`}>
         <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">
@@ -106,7 +109,9 @@ export function WorkCard({
           Read the case study <span aria-hidden="true">→</span>
         </TransitionLink>
       </div>
-      <div className={`relative min-h-[240px] ${reverse ? 'lg:order-1' : 'lg:order-2'}`}>
+      <div
+        className={`relative min-h-[240px] overflow-hidden ${reverse ? 'lg:order-1' : 'lg:order-2'}`}
+      >
         <WorkPreview project={project} />
       </div>
     </motion.article>

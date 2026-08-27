@@ -110,7 +110,12 @@ function ToolTile({
 }) {
   const shouldReduceMotion = useReducedMotionSafe();
   const shouldLoop = isSectionInView && !shouldReduceMotion;
-  const loopTransition = { duration: 7, repeat: Infinity, delay: index * 0.35, ease: EASE };
+  const loopTransition = {
+    duration: 7,
+    repeat: Infinity,
+    delay: index * 0.35,
+    ease: 'easeInOut' as const,
+  };
 
   return (
     <motion.div
@@ -127,7 +132,7 @@ function ToolTile({
       <motion.div
         animate={shouldLoop ? { y: [0, -7, 0] } : { y: 0 }}
         transition={shouldLoop ? loopTransition : { duration: 0.3 }}
-        className="border-line bg-surface relative overflow-hidden rounded-[var(--radius-tile)] border p-5 backdrop-blur-lg"
+        className="border-line bg-surface relative overflow-hidden rounded-[var(--radius-tile)] border p-5 backdrop-blur-sm"
       >
         <motion.div
           aria-hidden="true"
