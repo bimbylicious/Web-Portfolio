@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
+import { RESUME_PDF_URL } from '@/lib/constants';
 
 const CONTACT_EMAIL = 'raphaelmiguelsanchezz@gmail.com';
 
@@ -37,7 +38,7 @@ export function ContactCTA() {
             {copied ? 'Copied to clipboard' : CONTACT_EMAIL}
           </button>
           <a
-            href="/resume.pdf"
+            href={RESUME_PDF_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="df-focus border-line text-fg hover:bg-surface inline-flex min-h-11 items-center rounded-[var(--radius-pill)] border px-6 py-3 font-medium transition-colors"

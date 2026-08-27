@@ -5,6 +5,10 @@ export const SITE_DESCRIPTION =
   'Portfolio and technical writing from Raphael Miguel A. Sanchez (Bimby), covering full-stack and cloud engineering, infrastructure resilience, and security.';
 export const SITE_URL = 'https://example.com';
 
+// #view=FitH hints PDF viewers to fit the page to the viewport width on open,
+// which matters most on mobile where the default zoom otherwise requires a pinch to read.
+export const RESUME_PDF_URL = '/resume.pdf#view=FitH';
+
 export const SKILLS = [
   'C#',
   'Java',

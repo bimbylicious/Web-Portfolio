@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
-import { NAV_LINKS, SITE_OWNER, SOCIAL_LINKS } from '@/lib/constants';
+import { NAV_LINKS, RESUME_PDF_URL, SITE_OWNER, SOCIAL_LINKS } from '@/lib/constants';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -70,7 +70,7 @@ export function Footer() {
               ))}
               <li>
                 <a
-                  href="/resume.pdf"
+                  href={RESUME_PDF_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="df-focus hover:text-fg transition-colors"
