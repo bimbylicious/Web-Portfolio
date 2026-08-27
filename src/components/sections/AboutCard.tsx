@@ -21,19 +21,13 @@ export function AboutCard() {
               <h2 className="font-display text-fg mt-3 text-[32px] leading-tight font-extrabold tracking-[-0.03em] lg:text-[46px]">
                 I care about the parts of software most people never see.
               </h2>
-              <div className="text-body mt-5 space-y-4 text-[16px]">
+              <div className="text-body mt-5 text-[16px]">
                 <p>
-                  I&apos;m a BSIT graduate specializing in Information Security and Cybersecurity.
-                  The two projects I&apos;ve built so far, an infrastructure resilience simulator
-                  and an employee records system, taught me the same lesson twice: a confusing
-                  interface or a hidden failure state causes real problems for the people using it.
-                </p>
-                <p>
-                  I started building production UI in 2024, working through coursework projects
-                  before an OJT placement where I shipped an internal tool that replaced a
-                  spreadsheet-based process for an entire department. I am currently focused on
-                  strengthening my backend and cloud fundamentals, and I am looking to join a team
-                  where I can keep working on real, production systems rather than prototypes.
+                  I&apos;m a BSIT graduate specializing in Information Security and Cybersecurity,
+                  and I&apos;ve been building production UI since 2024. During an OJT placement, I
+                  shipped an internal tool that replaced a spreadsheet-based process for an entire
+                  department; now I&apos;m strengthening my backend and cloud fundamentals and
+                  looking to join a team working on real, production systems.
                 </p>
               </div>
             </div>
