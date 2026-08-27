@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { RESUME_PDF_URL } from '@/lib/constants';
@@ -15,20 +15,27 @@ const HEADLINE_SEGMENTS = [
 ] as const;
 
 function RevealHeadline({ shouldReduceMotion }: { shouldReduceMotion: boolean }) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const isInView = useInView(headingRef, { once: false });
+  const revealed = shouldReduceMotion || isInView;
+
   return (
-    <h2 className="font-display text-fg mt-4 text-[36px] leading-[1.05] font-extrabold tracking-[-0.03em] lg:text-[76px]">
+    <h2
+      ref={headingRef}
+      className="font-display text-fg mt-4 text-[36px] leading-[1.05] font-extrabold tracking-[-0.03em] lg:text-[76px]"
+    >
       {HEADLINE_SEGMENTS.map((segment) => (
         <motion.span
           key={segment.text}
           className="inline-block"
           initial={{ clipPath: 'inset(0 100% 0 0)' }}
-          whileInView={shouldReduceMotion ? undefined : { clipPath: 'inset(0 0% 0 0)' }}
-          animate={shouldReduceMotion ? { clipPath: 'inset(0 0% 0 0)' } : undefined}
-          viewport={{ once: false }}
+          animate={{ clipPath: revealed ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { duration: segment.duration, delay: segment.delay, ease: 'easeInOut' }
+              : revealed
+                ? { duration: segment.duration, delay: segment.delay, ease: 'easeInOut' }
+                : { duration: 0.2, ease: 'easeOut' }
           }
         >
           {segment.text}

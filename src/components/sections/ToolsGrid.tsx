@@ -109,6 +109,7 @@ function ToolTile({
   isSectionInView: boolean;
 }) {
   const shouldReduceMotion = useReducedMotionSafe();
+  const revealed = shouldReduceMotion || isSectionInView;
   const shouldLoop = isSectionInView && !shouldReduceMotion;
   const loopTransition = {
     duration: 7,
@@ -120,13 +121,13 @@ function ToolTile({
   return (
     <motion.div
       initial={revealUp.hidden}
-      whileInView={shouldReduceMotion ? undefined : revealUp.visible}
-      animate={shouldReduceMotion ? revealUp.visible : undefined}
-      viewport={SCROLL_VIEWPORT}
+      animate={revealed ? revealUp.visible : revealUp.hidden}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
-          : { duration: DURATION.base, delay: index * 0.04, ease: EASE }
+          : revealed
+            ? { duration: DURATION.base, delay: index * 0.04, ease: EASE }
+            : { duration: 0.2, ease: 'easeOut' }
       }
     >
       <motion.div

@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import type { ReactNode } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef, type ReactNode } from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 
 export function Reveal({
@@ -14,15 +14,23 @@ export function Reveal({
   className?: string;
 }) {
   const shouldReduceMotion = useReducedMotionSafe();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: false, margin: '-80px' });
+  const revealed = shouldReduceMotion || isInView;
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       initial={{ opacity: 0, y: 24 }}
-      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-      animate={shouldReduceMotion ? { opacity: 1, y: 0 } : undefined}
-      viewport={{ once: false, margin: '-80px' }}
-      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay, ease: 'easeOut' }}
+      animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 24 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : revealed
+            ? { duration: 0.5, delay, ease: 'easeOut' }
+            : { duration: 0.3, ease: 'easeOut' }
+      }
     >
       {children}
     </motion.div>
