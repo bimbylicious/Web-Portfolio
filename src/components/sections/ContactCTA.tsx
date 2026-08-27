@@ -60,7 +60,7 @@ export function ContactCTA() {
   }
 
   return (
-    <section id="contact" className="relative mx-auto max-w-3xl px-6 py-32 text-center">
+    <section id="contact" className="snap-start relative mx-auto max-w-3xl px-6 py-32 text-center">
       <Reveal>
         <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">04 / Contact</p>
         <RevealHeadline shouldReduceMotion={shouldReduceMotion} />

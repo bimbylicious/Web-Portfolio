@@ -3,7 +3,7 @@ import { CERTIFICATIONS, SKILLS } from '@/lib/constants';
 
 export function AboutCard() {
   return (
-    <section id="about" className="relative mx-auto max-w-5xl px-6 py-24">
+    <section id="about" className="snap-start relative mx-auto max-w-5xl px-6 py-24">
       <Reveal>
         <div className="border-line bg-surface rounded-[var(--radius-card)] border p-8 backdrop-blur-lg lg:p-10">
           <div className="grid gap-10 lg:grid-cols-[280px_1fr]">

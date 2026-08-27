@@ -3,7 +3,7 @@ import type { Project } from '@/types/content';
 
 export function SelectedWork({ projects }: { projects: Project[] }) {
   return (
-    <section id="selected-work" className="relative mx-auto max-w-5xl px-6 py-24">
+    <section id="selected-work" className="snap-start relative mx-auto max-w-5xl px-6 py-24">
       <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">
         01 / Selected work
       </p>

@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetBrainsMono.variable} ${chakraPetch.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetBrainsMono.variable} ${chakraPetch.variable} h-full antialiased motion-safe:snap-y motion-safe:snap-proximity`}
     >
       <body>
         <div className="bg-bg relative z-10 flex min-h-screen flex-col">

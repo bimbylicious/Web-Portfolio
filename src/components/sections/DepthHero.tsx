@@ -19,7 +19,7 @@ export function DepthHero() {
   });
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-6 py-32 text-center">
+    <section className="snap-start relative flex min-h-[90vh] flex-col items-center justify-center px-6 py-32 text-center">
       <motion.div
         {...stagger(0)}
         className="border-line bg-surface text-dim inline-flex items-center gap-2 rounded-[var(--radius-pill)] border px-4 py-1.5 font-mono text-[11px] tracking-[0.12em] uppercase backdrop-blur-lg"

@@ -155,7 +155,7 @@ export function ToolsGrid() {
   const isSectionInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
   return (
-    <section ref={sectionRef} className="relative mx-auto max-w-5xl px-6 py-24">
+    <section ref={sectionRef} className="snap-start relative mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial={revealUp.hidden}
         whileInView={shouldReduceMotion ? undefined : revealUp.visible}
