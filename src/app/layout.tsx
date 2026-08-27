@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Chakra_Petch, Inter, JetBrains_Mono } from 'next/font/google';
-import { PageTransitionProvider } from '@/components/motion/PageTransition';
 import { Footer } from '@/components/sections/Footer';
 import { Nav } from '@/components/sections/Nav';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
@@ -44,13 +43,11 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       className={`${inter.variable} ${jetBrainsMono.variable} ${chakraPetch.variable} h-full antialiased`}
     >
       <body>
-        <PageTransitionProvider>
-          <div className="bg-bg relative z-10 flex min-h-screen flex-col">
-            <Nav />
-            <main className="flex-1">{children}</main>
-          </div>
-          <Footer />
-        </PageTransitionProvider>
+        <div className="bg-bg relative z-10 flex min-h-screen flex-col">
+          <Nav />
+          <main className="flex-1">{children}</main>
+        </div>
+        <Footer />
       </body>
     </html>
   );

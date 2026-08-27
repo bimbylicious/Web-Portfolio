@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useRef } from 'react';
-import { TransitionLink } from '@/components/motion/TransitionLink';
+import Link from 'next/link';
+import { useRef, ViewTransition } from 'react';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { DURATION, EASE, revealUp, SCROLL_VIEWPORT } from '@/lib/motion';
 import type { Project } from '@/types/content';
@@ -14,30 +14,34 @@ function WorkPreview({ project }: { project: Project }) {
   if (project.spotlightVideo) {
     const webmSrc = project.spotlightVideo.replace(/\.mp4$/, '.webm');
     return (
-      <motion.video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-        onViewportEnter={() => videoRef.current?.play()}
-        onViewportLeave={() => videoRef.current?.pause()}
-        viewport={{ margin: '-10%' }}
-      >
-        <source src={webmSrc} type="video/webm" />
-        <source src={project.spotlightVideo} type="video/mp4" />
-      </motion.video>
+      <ViewTransition name={`project-media-${project.slug}`}>
+        <motion.video
+          ref={videoRef}
+          muted
+          loop
+          playsInline
+          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          onViewportEnter={() => videoRef.current?.play()}
+          onViewportLeave={() => videoRef.current?.pause()}
+          viewport={{ margin: '-10%' }}
+        >
+          <source src={webmSrc} type="video/webm" />
+          <source src={project.spotlightVideo} type="video/mp4" />
+        </motion.video>
+      </ViewTransition>
     );
   }
 
   if (project.coverImage) {
     return (
-      <Image
-        src={project.coverImage}
-        alt={project.coverImageAlt ?? ''}
-        fill
-        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-      />
+      <ViewTransition name={`project-media-${project.slug}`}>
+        <Image
+          src={project.coverImage}
+          alt={project.coverImageAlt ?? ''}
+          fill
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+      </ViewTransition>
     );
   }
 
@@ -102,12 +106,12 @@ export function WorkCard({
             ))}
           </dl>
         )}
-        <TransitionLink
+        <Link
           href={`/projects/${project.slug}`}
           className="df-focus text-fg mt-6 inline-flex items-center gap-1.5 font-medium hover:underline"
         >
           Read the case study <span aria-hidden="true">→</span>
-        </TransitionLink>
+        </Link>
       </div>
       <div
         className={`relative min-h-[240px] overflow-hidden ${reverse ? 'lg:order-1' : 'lg:order-2'}`}

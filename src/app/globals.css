@@ -136,6 +136,19 @@
   }
 }
 
+/* Lets clicks pass through to the live page while a view transition plays. */
+::view-transition {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+  }
+}
+
 /* Depth Field ambient layer */
 @keyframes df-grain {
   0%,
