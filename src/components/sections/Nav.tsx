@@ -5,6 +5,15 @@ import Link from 'next/link';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 
+function StatusDot() {
+  return (
+    <span className="relative flex h-2.5 w-2.5">
+      <span className="bg-violet motion-reduce:hidden absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+      <span className="bg-violet relative inline-flex h-2.5 w-2.5 rounded-full" />
+    </span>
+  );
+}
+
 export function Nav() {
   const shouldReduceMotion = useReducedMotionSafe();
 
@@ -16,9 +25,9 @@ export function Nav() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: shouldReduceMotion ? 0 : 0.1, ease: 'easeOut' }}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/" className="font-display text-fg font-bold tracking-[-0.02em]">
-          {SITE_NAME}
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-6 py-4">
+        <Link href="/" aria-label={`${SITE_NAME} — Home`} className="df-focus inline-flex p-1">
+          <StatusDot />
         </Link>
         <ul className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-[11px] tracking-[0.1em] uppercase">
           {NAV_LINKS.map((link) => (
