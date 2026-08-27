@@ -21,7 +21,7 @@ export function Reveal({
       initial={{ opacity: 0, y: 24 }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       animate={shouldReduceMotion ? { opacity: 1, y: 0 } : undefined}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: false, margin: '-80px' }}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay, ease: 'easeOut' }}
     >
       {children}

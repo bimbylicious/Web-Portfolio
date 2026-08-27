@@ -14,7 +14,7 @@ import {
   siVercel,
 } from 'simple-icons';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
-import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
+import { DURATION, EASE, revealUp, SCROLL_VIEWPORT } from '@/lib/motion';
 import { TOOLS } from '@/lib/constants';
 
 // Next.js, shadcn/ui, and Vercel all publish pure-black (#000000) marks meant for light
@@ -106,7 +106,7 @@ function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number
       initial={revealUp.hidden}
       whileInView={shouldReduceMotion ? undefined : revealUp.visible}
       animate={shouldReduceMotion ? revealUp.visible : undefined}
-      viewport={VIEWPORT_ONCE}
+      viewport={SCROLL_VIEWPORT}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
@@ -150,7 +150,7 @@ export function ToolsGrid() {
         initial={revealUp.hidden}
         whileInView={shouldReduceMotion ? undefined : revealUp.visible}
         animate={shouldReduceMotion ? revealUp.visible : undefined}
-        viewport={VIEWPORT_ONCE}
+        viewport={SCROLL_VIEWPORT}
         transition={shouldReduceMotion ? { duration: 0 } : { duration: DURATION.base, ease: EASE }}
         className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
       >

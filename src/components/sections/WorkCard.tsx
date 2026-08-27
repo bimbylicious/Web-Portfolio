@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { TransitionLink } from '@/components/motion/TransitionLink';
 import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
-import { DURATION, EASE, revealUp, VIEWPORT_ONCE } from '@/lib/motion';
+import { DURATION, EASE, revealUp, SCROLL_VIEWPORT } from '@/lib/motion';
 import type { Project } from '@/types/content';
 
 function WorkPreview({ project }: { project: Project }) {
@@ -64,7 +64,7 @@ export function WorkCard({
       initial={revealUp.hidden}
       whileInView={shouldReduceMotion ? undefined : revealUp.visible}
       animate={shouldReduceMotion ? revealUp.visible : undefined}
-      viewport={VIEWPORT_ONCE}
+      viewport={SCROLL_VIEWPORT}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: DURATION.base, ease: EASE }}
       className="border-line bg-surface grid overflow-hidden rounded-[var(--radius-card)] border backdrop-blur-lg lg:grid-cols-2"
     >

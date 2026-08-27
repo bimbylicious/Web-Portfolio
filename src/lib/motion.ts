@@ -6,7 +6,7 @@ export const DURATION = {
   slow: 0.9,
 } as const;
 
-export const VIEWPORT_ONCE = { once: true, margin: '-100px' } as const;
+export const SCROLL_VIEWPORT = { once: false, margin: '-100px' } as const;
 
 export const revealUp = {
   hidden: { opacity: 0, y: 28, filter: 'blur(10px)' },
