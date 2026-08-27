@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
   siDocker,
   siFigma,
@@ -98,8 +99,18 @@ function ToolLogo({ name }: { name: string }) {
   );
 }
 
-function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number }) {
+function ToolTile({
+  tool,
+  index,
+  isSectionInView,
+}: {
+  tool: (typeof TOOLS)[number];
+  index: number;
+  isSectionInView: boolean;
+}) {
   const shouldReduceMotion = useReducedMotionSafe();
+  const shouldLoop = isSectionInView && !shouldReduceMotion;
+  const loopTransition = { duration: 7, repeat: Infinity, delay: index * 0.35, ease: EASE };
 
   return (
     <motion.div
@@ -114,25 +125,16 @@ function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number
       }
     >
       <motion.div
-        animate={
-          shouldReduceMotion
-            ? undefined
-            : {
-                y: [0, -7, 0],
-                borderColor: [
-                  'rgba(236,235,243,0.12)',
-                  'rgba(166,139,255,0.6)',
-                  'rgba(236,235,243,0.12)',
-                ],
-              }
-        }
-        transition={
-          shouldReduceMotion
-            ? undefined
-            : { duration: 7, repeat: Infinity, delay: index * 0.35, ease: EASE }
-        }
-        className="border-line bg-surface rounded-[var(--radius-tile)] border p-5 backdrop-blur-lg"
+        animate={shouldLoop ? { y: [0, -7, 0] } : { y: 0 }}
+        transition={shouldLoop ? loopTransition : { duration: 0.3 }}
+        className="border-line bg-surface relative overflow-hidden rounded-[var(--radius-tile)] border p-5 backdrop-blur-lg"
       >
+        <motion.div
+          aria-hidden="true"
+          className="border-violet pointer-events-none absolute inset-0 rounded-[var(--radius-tile)] border"
+          animate={shouldLoop ? { opacity: [0, 1, 0] } : { opacity: 0 }}
+          transition={shouldLoop ? loopTransition : { duration: 0.3 }}
+        />
         <ToolLogo name={tool.name} />
         <p className="text-fg mt-3 text-[15px] font-medium">{tool.name}</p>
         <p className="text-dim mt-1 text-[13px]">{tool.usage}</p>
@@ -143,9 +145,11 @@ function ToolTile({ tool, index }: { tool: (typeof TOOLS)[number]; index: number
 
 export function ToolsGrid() {
   const shouldReduceMotion = useReducedMotionSafe();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isSectionInView = useInView(sectionRef, { once: false, amount: 0.2 });
 
   return (
-    <section className="relative mx-auto max-w-5xl px-6 py-24">
+    <section ref={sectionRef} className="relative mx-auto max-w-5xl px-6 py-24">
       <motion.div
         initial={revealUp.hidden}
         whileInView={shouldReduceMotion ? undefined : revealUp.visible}
@@ -169,7 +173,7 @@ export function ToolsGrid() {
 
       <div className="mt-10 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {TOOLS.map((tool, index) => (
-          <ToolTile key={tool.name} tool={tool} index={index} />
+          <ToolTile key={tool.name} tool={tool} index={index} isSectionInView={isSectionInView} />
         ))}
       </div>
     </section>
