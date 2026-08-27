@@ -1,12 +1,45 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Reveal } from '@/components/motion/Reveal';
+import { useReducedMotionSafe } from '@/hooks/useReducedMotionSafe';
 import { RESUME_PDF_URL } from '@/lib/constants';
 
 const CONTACT_EMAIL = 'raphaelmiguelsanchezz@gmail.com';
 
+const HEADLINE_SEGMENTS = [
+  { text: 'So', duration: 0.5, delay: 0 },
+  { text: '...', duration: 1.1, delay: 0.5 },
+  { text: ' wanna talk?', duration: 0.4, delay: 1.6 },
+] as const;
+
+function RevealHeadline({ shouldReduceMotion }: { shouldReduceMotion: boolean }) {
+  return (
+    <h2 className="font-display text-fg mt-4 text-[36px] leading-[1.05] font-extrabold tracking-[-0.03em] lg:text-[76px]">
+      {HEADLINE_SEGMENTS.map((segment) => (
+        <motion.span
+          key={segment.text}
+          className="inline-block"
+          initial={{ clipPath: 'inset(0 100% 0 0)' }}
+          whileInView={shouldReduceMotion ? undefined : { clipPath: 'inset(0 0% 0 0)' }}
+          animate={shouldReduceMotion ? { clipPath: 'inset(0 0% 0 0)' } : undefined}
+          viewport={{ once: false }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: segment.duration, delay: segment.delay, ease: 'easeInOut' }
+          }
+        >
+          {segment.text}
+        </motion.span>
+      ))}
+    </h2>
+  );
+}
+
 export function ContactCTA() {
+  const shouldReduceMotion = useReducedMotionSafe();
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
@@ -23,9 +56,7 @@ export function ContactCTA() {
     <section id="contact" className="relative mx-auto max-w-3xl px-6 py-32 text-center">
       <Reveal>
         <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">04 / Contact</p>
-        <h2 className="font-display text-fg mt-4 text-[36px] leading-[1.05] font-extrabold tracking-[-0.03em] lg:text-[76px]">
-          So... wanna talk?
-        </h2>
+        <RevealHeadline shouldReduceMotion={shouldReduceMotion} />
         <p className="text-body mx-auto mt-6 max-w-md text-[16px]">
           Click below to copy my email address.
         </p>
