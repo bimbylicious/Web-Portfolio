@@ -24,7 +24,7 @@ export function ContactCTA() {
       <Reveal>
         <p className="text-dim font-mono text-[11px] tracking-[0.12em] uppercase">04 / Contact</p>
         <h2 className="font-display text-fg mt-4 text-[36px] leading-[1.05] font-extrabold tracking-[-0.03em] lg:text-[76px]">
-          Looking for a developer who can own a project end to end? I would like to hear from you.
+          So... wanna talk?
         </h2>
         <p className="text-body mx-auto mt-6 max-w-md text-[16px]">
           Click below to copy my email address.

@@ -19,7 +19,7 @@ export function AboutCard() {
                 03 / About
               </p>
               <h2 className="font-display text-fg mt-3 text-[32px] leading-tight font-extrabold tracking-[-0.03em] lg:text-[46px]">
-                I care about the parts of software most people never see.
+                I&apos;m here to learn, build, and see how far I can take it.
               </h2>
               <div className="text-body mt-5 text-[16px]">
                 <p>
